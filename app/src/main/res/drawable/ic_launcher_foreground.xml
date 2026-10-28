@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="27" android:viewportHeight="27">
+    <!-- A pixel pipe wrench over a glowing cosmic drain. -->
+    <path android:fillColor="#3DFF9A" android:pathData="M9,17h9v2h-9zM10,16h7v1h-7zM10,19h7v1h-7z" />
+    <path android:fillColor="#1D7A5A" android:pathData="M11,17h5v2h-5z" />
+    <path android:fillColor="#C0C4D0" android:pathData="M15,6h4v2h-4zM15,8h1v3h-1zM18,8h1v1h-1zM14,11h3v2h-3z" />
+    <path android:fillColor="#E04040" android:pathData="M13,13h2v2h-2zM12,15h2v2h-2zM11,17h2v2h-2zM10,19h2v2h-2z" />
+    <path android:fillColor="#7A8090" android:pathData="M16,11h1v2h-1z" />
+</vector>
