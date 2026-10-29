@@ -53,6 +53,15 @@ class RhythmJudgeTest {
         assertEquals(0, j.combo)
     }
 
+    @Test fun tapsHitTheLaneDrawnUnderThem() {
+        // 390 game pixels wide (a 19.5:9 phone): the highway is x 120..270, 50 pixels a lane.
+        assertEquals(0, RhythmJudge.laneAt(10f, 390))   // left of the highway
+        assertEquals(0, RhythmJudge.laneAt(160f, 390))  // HOT, which the old screen-thirds split read as GAS
+        assertEquals(1, RhythmJudge.laneAt(195f, 390))
+        assertEquals(2, RhythmJudge.laneAt(230f, 390))  // COLD
+        assertEquals(2, RhythmJudge.laneAt(380f, 390))  // right of the highway
+    }
+
     @Test fun silenceFailsTheJob() {
         val j = RhythmJudge(notes, 0.1f)
         assertEquals(4, j.advance(10f))

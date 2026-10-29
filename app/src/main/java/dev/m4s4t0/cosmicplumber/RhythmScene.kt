@@ -69,6 +69,17 @@ class RhythmJudge(val notes: List<Pair<Float, Int>>, val window: Float) {
     private fun skipJudged() {
         while (first < notes.size && results[first] != null) first++
     }
+
+    companion object {
+        /** Width of the three-lane highway in the middle of a screen [w] game pixels wide. */
+        fun highwayWidth(w: Int) = minOf(w - 120, 150)
+
+        /** The lane under [x] as drawn; the space either side of the highway counts as the outer lanes. */
+        fun laneAt(x: Float, w: Int): Int {
+            val hw = highwayWidth(w)
+            return Math.floorDiv((x - (w - hw) / 2).toInt(), hw / 3).coerceIn(0, 2)
+        }
+    }
 }
 
 /** The wrench job: tighten the bolts on the beat, Guitar Hero style. Three lanes: HOT, GAS and COLD. */
@@ -145,7 +156,7 @@ class RhythmScene(game: Game, private val job: Job) : Scene(game) {
     override fun down(id: Int, x: Float, y: Float) {
         val j = judge ?: return
         if (!started || done > 0f) return
-        val lane = (x / (game.g.w / 3f)).toInt().coerceIn(0, 2)
+        val lane = RhythmJudge.laneAt(x, game.g.w)
         val h = j.tap(lane, now)
         swing[lane] = 1f
         if (h != RhythmJudge.Hit.WHIFF) {
@@ -163,7 +174,7 @@ class RhythmScene(game: Game, private val job: Job) : Scene(game) {
         val pulse = (1f - beat).let { it * it }
         backdrop(g, pulse)
 
-        val hw = minOf(g.w - 120, 150)
+        val hw = RhythmJudge.highwayWidth(g.w)
         val hx = (g.w - hw) / 2
         val lw = hw / 3
         val hitY = g.h - 34
